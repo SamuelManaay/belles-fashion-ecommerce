@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belle's Fashion</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    header nav {
+      display: flex;
+      align-items: center;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    header nav a:hover {
+      color: #ff6f61;
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    section p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .hero .btn {
+      background: #ff6f61;
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      transition: background 0.3s;
+    }
+
+    .hero .btn:hover {
+      background: #ff3b2f;
+    }
+
+    /* Featured Categories */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .category-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .category-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 200px; /* Fixed height for consistency */
+      object-fit: cover; /* Ensures the image covers the container */
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.1); /* Zoom effect on hover */
+    }
+
+    .category-card h3 {
+      font-size: 20px;
+      margin: 15px 0;
+    }
+
+    /* Category Details */
+    .category-details {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .category-details.active {
+      display: block;
+    }
+
+    .category-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .category-details img {
+      width: 100%;
+      height: 200px; /* Fixed height for consistency */
+      object-fit: cover; /* Ensures the image covers the container */
+      border-radius: 10px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .category-details img:hover {
+      transform: scale(1.1); /* Zoom effect on hover */
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      padding: 40px 10%;
+      text-align: center;
+    }
+
+    footer .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 20px;
+      transition: color 0.3s;
+    }
+
+    footer .social-icons a:hover {
+      color: #ff6f61;
+    }
+
+    footer p {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header nav {
+        margin-top: 15px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">Belle's Fashion</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="hero">
+    <div>
+      <h1>Elegance Meets Brazilian Spirit</h1>
+      <p>Discover the perfect blend of style and comfort.</p>
+      <a href="#shop" class="btn">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Shop Section -->
+  <section id="shop">
+    <h2>Shop Our Collection</h2>
+    <p>Explore our latest fashion trends for men, women, and accessories.</p>
+    <div class="categories-grid">
+      <div class="category-card" data-category="women">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Women's Wear">
+        <h3>Women's Wear</h3>
+      </div>
+      <div class="category-card" data-category="men">
+        <img src="https://media.istockphoto.com/id/890289344/photo/the-perfect-outfit-means-a-perfect-day.webp?a=1&b=1&s=612x612&w=0&k=20&c=lXVxkET-3Yjmo2t_4Vripyub-2H0Y6TsK9QfSiDf7uk=" alt="Men's Wear">
+        <h3>Men's Wear</h3>
+      </div>
+      <div class="category-card" data-category="accessories">
+        <img src="https://media.istockphoto.com/id/1047601114/photo/golden-bracelets-and-earrings-with-pearls-on-pink-and-white-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=-Zfyr4FkqHSzHUrCR40pAXZHyKJYjyz9lgbYSJL0LUA=" alt="Accessories">
+        <h3>Accessories</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Details -->
+  <section id="category-details">
+    <div id="women-details" class="category-details">
+      <h2>Women's Wear</h2>
+      <div class="category-details-grid">
+        <!-- Add 20+ images for Women's Wear -->
+        <img src="https://images.unsplash.com/photo-1571513800374-df1bbe650e56?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Women's Wear 1">
+        <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Women's Wear 2">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Women's Wear 3">
+        <img src="https://images.unsplash.com/photo-1513094735237-8f2714d57c13?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d29tZW4lMjBmYXNoaW9ufGVufDB8fDB8fHww" alt="Women's Wear 4">
+        <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d29tZW4lMjBmYXNoaW9ufGVufDB8fDB8fHww" alt="Women's Wear 5">
+        <img src="https://plus.unsplash.com/premium_photo-1661597265308-934005c78491?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8d29tZW4lMjBmYXNoaW9ufGVufDB8fDB8fHww" alt="Women's Wear 6">
+        <img src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHdvbWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Women's Wear 7">
+        <img src="https://images.unsplash.com/photo-1584998316204-3b1e3b1895ae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHdvbWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Women's Wear 8">
+        <img src="https://images.unsplash.com/photo-1590330297626-d7aff25a0431?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHdvbWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Women's Wear 9">
+        <img src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d29tZW4lMjBmYXNoaW9ufGVufDB8fDB8fHww" alt="Women's Wear 10">
+        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Women's Wear 11">
+        <img src="https://images.unsplash.com/photo-1601762603339-fd61e28b698a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Women's Wear 12">
+        <img src="https://plus.unsplash.com/premium_photo-1708110770188-3e4216b93119?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Women's Wear 13">
+        <img src="https://images.unsplash.com/photo-1574015974293-817f0ebebb74?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Women's Wear 14">
+      </div>
+    </div>
+    <div id="men-details" class="category-details">
+      <h2>Men's Wear</h2>
+      <div class="category-details-grid">
+        <!-- Add 20+ images for Men's Wear -->
+        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Men's Wear 1">
+        <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Men's Wear 2">
+        <img src="https://images.unsplash.com/photo-1521341057461-6eb5f40b07ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Men's Wear 3">
+        <img src="https://plus.unsplash.com/premium_photo-1658506787944-7939ed84aaf8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Men's Wear 4">
+        <img src="https://images.unsplash.com/photo-1618886614638-80e3c103d31a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Men's Wear 5">
+        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Men's Wear 6">
+        <img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="Men's Wear 7">
+        <img src="https://images.unsplash.com/photo-1617114919297-3c8ddb01f599?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG1lbiUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Men's Wear 8">
+        <img src="https://images.unsplash.com/photo-1626557981101-aae6f84aa6ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1lbiUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Men's Wear 9">
+        <img src="https://plus.unsplash.com/premium_photo-1672239496593-f51cdc01c0f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1lbiUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Men's Wear 10">
+        <img src="https://images.unsplash.com/photo-1621096029176-9dbb22a56808?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1lbiUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Men's Wear 11">
+        <img src="https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Men's Wear 12">
+        <img src="https://images.unsplash.com/photo-1593757147298-e064ed1419e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1lbiUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="Men's Wear 13">
+        <img src="https://images.unsplash.com/photo-1480429370139-e0132c086e2a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFufGVufDB8fDB8fHww" alt="Men's Wear 14">
+      </div>
+    </div>
+    <div id="accessories-details" class="category-details">
+      <h2>Accessories</h2>
+      <div class="category-details-grid">
+        <!-- Add 20+ images for Accessories -->
+        <img src="https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="Accessories 1">
+        <img src="https://plus.unsplash.com/premium_photo-1674255466836-f38d1cc6fd0d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWNjZXNzb3J5fGVufDB8fDB8fHww" alt="Accessories 2">
+        <img src="https://images.unsplash.com/photo-1723802205505-2f88b2227718?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YWNjZXNzb3J5fGVufDB8fDB8fHww" alt="Accessories 3">
+        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YWNjZXNzb3J5fGVufDB8fDB8fHww" alt="Accessories 4">
+        <img src="https://plus.unsplash.com/premium_photo-1671641737519-841d15b5211f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWNjZXNzb3J5fGVufDB8fDB8fHww" alt="Accessories 5">
+        <img src="https://images.unsplash.com/photo-1659708701940-e60893ef03d0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGFjY2Vzc29yeXxlbnwwfHwwfHx8MA%3D%3D" alt="Accessories 6">
+        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YWNjZXNzb3J5fGVufDB8fDB8fHww" alt="Accessories 7">
+        <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWNjZXNzb3J5fGVufDB8fDB8fHww" alt="Accessories 8">
+        <img src="https://images.unsplash.com/photo-1660245409239-23b212a77793?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1lbiUyMGFjY2Vzc29yaWVzfGVufDB8fDB8fHww" alt="Accessories 9">
+        <img src="https://images.unsplash.com/photo-1579362093956-a743707ecac1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWVuJTIwYWNjZXNzb3JpZXN8ZW58MHx8MHx8fDA%3D" alt="Accessories 10">
+        <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0Y2h8ZW58MHx8MHx8fDA%3D" alt="Accessories 11">
+        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2F0Y2h8ZW58MHx8MHx8fDA%3D" alt="Accessories 12">
+        <img src="https://images.unsplash.com/photo-1622434641406-a158123450f9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHdhdGNofGVufDB8fDB8fHww" alt="Accessories 13">
+        <img src="https://images.unsplash.com/photo-1506193095-80bc749473f2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHdhdGNofGVufDB8fDB8fHww" alt="Accessories 14">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Belle's Fashion was born in the heart of Brazil, inspired by the vibrant culture and timeless elegance of our people. We aim to deliver high-quality, affordable fashion that empowers our customers to express their unique style.</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Have questions? Reach out to us!</p>
+    <p>Email: support@bellesfashion.com.br</p>
+    <p>Phone: +55 (XX) XXXX-XXXX</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+    </div>
+    <p>&copy; 2025 Belle's Fashion. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="image-modal">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <img id="modal-image" src="" alt="Modal Image">
+  </div>
+
+  <!-- JavaScript for Category Details and Modal -->
+  <script>
+    // Category details functionality
+    const categoryCards = document.querySelectorAll('.category-card');
+    const categoryDetails = document.querySelectorAll('.category-details');
+
+    categoryCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const category = card.getAttribute('data-category');
+        categoryDetails.forEach(detail => {
+          detail.classList.remove('active');
+          if (detail.id === `${category}-details`) {
+            detail.classList.add('active');
+          }
+        });
+        // Scroll to the category details section
+        document.getElementById('category-details').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalClose = document.getElementById('modal-close');
+
+    // Open modal when an image is clicked
+    document.querySelectorAll('.category-details img').forEach(image => {
+      image.addEventListener('click', () => {
+        modalImage.src = image.src;
+        modal.classList.add('active');
+      });
+    });
+
+    // Close modal when the close button is clicked
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('header nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
